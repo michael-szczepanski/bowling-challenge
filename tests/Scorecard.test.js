@@ -1,8 +1,13 @@
-const Scorecard = require('../lib/scorecard.js')
+const Scorecard = require('../src/Scorecard.js')
+
+let scorecard;
 
 describe('Scorecard', () => {
+  beforeEach(() => {
+    scorecard = new Scorecard();
+  })
+
   test('passes exercise example', () => {
-    const scorecard = new Scorecard()
     scorecard.addFrame(1, 4)
     scorecard.addFrame(4, 5)
     scorecard.addFrame(6, 4)
@@ -18,7 +23,6 @@ describe('Scorecard', () => {
 
   describe('calculateScore()', () => {
     test('counts scores for a gutter game', () => {
-      const scorecard = new Scorecard()
       for (let i = 0; i < 9; i++) {
         scorecard.addFrame(0, 0)
       }
@@ -27,14 +31,12 @@ describe('Scorecard', () => {
     })
 
     test('counts scores for a partial game', () => {
-      const scorecard = new Scorecard()
       scorecard.addFrame(2, 5)
       scorecard.addFrame(3, 5)
       expect(scorecard.calculateScore()).toEqual(15)
     })
 
     test('counts scores for a game with no strikes/spares, and gutter in second roll', () => {
-      const scorecard = new Scorecard()
       for (let i = 0; i < 9; i++) {
         scorecard.addFrame(9, 0)
       }
@@ -43,7 +45,6 @@ describe('Scorecard', () => {
     })
 
     test('counts scores for a game with no strikes/spares, and mixed rolls', () => {
-      const scorecard = new Scorecard()
       for (let i = 0; i < 9; i++) {
         scorecard.addFrame(2, 3)
       }
@@ -52,7 +53,6 @@ describe('Scorecard', () => {
     })
 
     test('counts scores for a perfect game', () => {
-      const scorecard = new Scorecard()
       for (let i = 0; i < 9; i++) {
         scorecard.addFrame(10, 0)
       }
@@ -61,14 +61,12 @@ describe('Scorecard', () => {
     })
 
     test('counts scores for a mixed spares game', () => {
-      const scorecard = new Scorecard()
       scorecard.addFrame(0, 10)
       scorecard.addFrame(2, 3)
       expect(scorecard.calculateScore()).toEqual(17)
     })
 
     test('counts scores correctly for a partial game finishing with a spare', () => {
-      const scorecard = new Scorecard()
       scorecard.addFrame(0,10)
       expect(scorecard.calculateScore()).toEqual(10)
     })
@@ -76,14 +74,12 @@ describe('Scorecard', () => {
 
   describe('calculateStrikeExtraPoints()', () => {
     test('counts scores for the next two rolls with no consecutive strike', () => {
-      const scorecard = new Scorecard()
       scorecard.addFrame(10, 0)
       scorecard.addFrame(2, 3)
       expect(scorecard.calculateStrikeExtraPoints(0)).toEqual(5)
     })
 
     test('counts scores if the next roll is a strike', () => {
-      const scorecard = new Scorecard()
       scorecard.addFrame(10, 0)
       scorecard.addFrame(10, 0)
       scorecard.addFrame(2, 4)
@@ -91,11 +87,32 @@ describe('Scorecard', () => {
     })
 
     test('counts scores if the next two rolls are both strikes', () => {
-      const scorecard = new Scorecard()
       scorecard.addFrame(10, 0)
       scorecard.addFrame(10, 0)
       scorecard.addFrame(10, 0)
       expect(scorecard.calculateStrikeExtraPoints(0)).toEqual(20)
     })
+
+    test('works correctly for partial games', () => {
+      scorecard.addFrame(0,10)
+      expect(scorecard.calculateStrikeExtraPoints(0)).toEqual(0)
+    })
   })
+
+  describe('addScore()', () => {
+    test('it correctly adds score to an empty frame', () => {
+      scorecard.addScore(2);
+      expect(scorecard.frames).toEqual([[2,undefined]]);
+      scorecard.addScore(3);
+      expect(scorecard.frames).toEqual([[2,3]]);
+    })
+    
+    test('it correctly adds a new frame at the end of the array', () => {
+      scorecard.addFrame(1,2);
+      scorecard.addScore(3);
+      scorecard.addScore(4);
+      expect(scorecard.frames).toEqual([[1,2],[3,4]])
+    })
+  })
+
 })

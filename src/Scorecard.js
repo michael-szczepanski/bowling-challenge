@@ -11,6 +11,10 @@ class Scorecard {
     }
   }
 
+  addScore (score) {
+    
+  }
+
   calculateScore () {
     let score = 0
 
@@ -51,7 +55,3 @@ class Scorecard {
 }
 
 module.exports = Scorecard
-
-let scorecard = new Scorecard();
-scorecard.addFrame(1,2)
-console.log(scorecard.calculateScore())
