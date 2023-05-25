@@ -12,7 +12,13 @@ class Scorecard {
   }
 
   addScore (score) {
-    
+    console.log(this.frames)
+    let lastFrame = this.frames.length - 1
+    if (this.frames[lastFrame] === undefined || this.frames[lastFrame][1] !== undefined) {
+      this.addFrame(score, undefined);
+    } else {
+      this.frames[lastFrame][1] = score;
+    }
   }
 
   calculateScore () {

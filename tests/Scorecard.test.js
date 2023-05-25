@@ -106,7 +106,7 @@ describe('Scorecard', () => {
       scorecard.addScore(3);
       expect(scorecard.frames).toEqual([[2,3]]);
     })
-    
+
     test('it correctly adds a new frame at the end of the array', () => {
       scorecard.addFrame(1,2);
       scorecard.addScore(3);
@@ -114,5 +114,4 @@ describe('Scorecard', () => {
       expect(scorecard.frames).toEqual([[1,2],[3,4]])
     })
   })
-
 })
