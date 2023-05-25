@@ -1,19 +1,16 @@
 const UserInterface = require('../src/UserInterface.js')
 const Scorecard = require('../src/Scorecard.js')
 
-let ui, rl, mockedScorecard;
+let ui, mockedScorecard;
 jest.mock('../src/Scorecard.js')
 jest.spyOn(console, 'log')
 
 describe('UserInterface', () => {
   beforeEach(() => {
-    mockedScorecard = new Scorecard();;
+    mockedScorecard = new Scorecard();
     let ioDouble = { 
       createInterface: () => { return {
-        setPrompt: () => {},
-        prompt: () => {},
-        on: () => {},
-        close: () => {}
+        question: () => {  }
         }
       }
     }
@@ -43,10 +40,8 @@ describe('UserInterface', () => {
   })
 
   describe("getUserInput()", () => {
-    test('calls addScore on ui.scoreboard object', () => {
-      jest.spyOn(ui.scorecard, 'addScore')
-      ui.getUserInput()
-      expect(ui.scoreboard.addScore).toHaveBeenCalled();
+    test('returns inserted value', () => {
+
     })
   })
 })

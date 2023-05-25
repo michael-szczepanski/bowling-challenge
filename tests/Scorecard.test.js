@@ -114,4 +114,13 @@ describe('Scorecard', () => {
       expect(scorecard.frames).toEqual([[1,2],[3,4]])
     })
   })
+
+  describe('printScores()', () => {
+    test('returns scores in correct format', () => {
+      scorecard.addFrame(1,2);
+      scorecard.addFrame(3,4);
+      expect(scorecard.printScores()).toMatch("1/2");
+      expect(scorecard.printScores()).toMatch("3/4");
+    })
+  })
 })

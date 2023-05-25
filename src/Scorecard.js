@@ -12,7 +12,6 @@ class Scorecard {
   }
 
   addScore (score) {
-    console.log(this.frames)
     let lastFrame = this.frames.length - 1
     if (this.frames[lastFrame] === undefined || this.frames[lastFrame][1] !== undefined) {
       this.addFrame(score, undefined);
@@ -38,7 +37,7 @@ class Scorecard {
       }
 
       score += frame[0]
-      score += frame[1]
+      frame[1] !== undefined ? score += frame[1] : undefined;
     })
     return score
   }
@@ -57,6 +56,10 @@ class Scorecard {
     }
 
     return firstExtraRoll + secondExtraRoll
+  }
+
+  printScores() {
+    return "Frames: " + this.frames.map((frame) => { return frame.join("/") }).join(" # ") + `\nScore: ${this.calculateScore()}`;
   }
 }
 
