@@ -28,8 +28,9 @@ class UserInterface {
         return;
       } else {
         console.clear();
-        this.getUserInput();
       }
+
+      this.getUserInput();
     });
   }
 }

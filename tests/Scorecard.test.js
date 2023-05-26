@@ -113,6 +113,11 @@ describe('Scorecard', () => {
       scorecard.addScore(4);
       expect(scorecard.frames).toEqual([[1,2],[3,4]])
     })
+
+    test('it correctly adds a full frame on Strike', () => {
+      scorecard.addScore(10);
+      expect(scorecard.frames).toEqual([[10,0]]);
+    })
   })
 
   describe('printScores()', () => {

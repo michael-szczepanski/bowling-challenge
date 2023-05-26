@@ -14,7 +14,7 @@ class Scorecard {
   addScore (score) {
     let lastFrame = this.frames.length - 1
     if (this.frames[lastFrame] === undefined || this.frames[lastFrame][1] !== undefined) {
-      this.addFrame(score, undefined);
+      score === 10 ? this.addFrame(10,0) : this.addFrame(score, undefined);
     } else {
       this.frames[lastFrame][1] = score;
     }
@@ -50,7 +50,9 @@ class Scorecard {
     firstExtraRoll = this.frames[index + 1][0]
 
     if (firstExtraRoll === 10) {
-      secondExtraRoll = this.frames[index + 1][1] === 10 ? 10 : this.frames[index + 2][0]
+      secondExtraRoll = this.frames[index + 1][1] === 10 ? 10 : (
+        this.frames[index + 2] === undefined ? 0 : this.frames[index + 2][0]
+        );
     } else {
       secondExtraRoll = this.frames[index + 1][1]
     }
