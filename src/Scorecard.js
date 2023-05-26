@@ -12,14 +12,14 @@ class Scorecard {
   }
 
   addScore (score) {
-    let lastFrame = this.frames.length - 1
+    const lastFrame = this.frames.length - 1
 
     if (lastFrame === 9) {
-      this.frames[lastFrame][1] === undefined ? this.frames[lastFrame][1] = score : this.frames[lastFrame][2] = score;
+      this.frames[lastFrame][1] === undefined ? this.frames[lastFrame][1] = score : this.frames[lastFrame][2] = score
     } else if (this.frames[lastFrame] === undefined || this.frames[lastFrame][1] !== undefined) {
-      score === 10 && lastFrame !== 8 ? this.addFrame(10,0) : this.addFrame(score, undefined);
+      score === 10 && lastFrame !== 8 ? this.addFrame(10, 0) : this.addFrame(score, undefined)
     } else {
-      this.frames[lastFrame][1] = score;
+      this.frames[lastFrame][1] = score
     }
   }
 
@@ -40,7 +40,7 @@ class Scorecard {
       }
 
       score += frame[0]
-      frame[1] !== undefined ? score += frame[1] : undefined;
+      if (frame[1] !== undefined) { score += frame[1] }
     })
     return score
   }
@@ -53,9 +53,11 @@ class Scorecard {
     firstExtraRoll = this.frames[index + 1][0]
 
     if (firstExtraRoll === 10) {
-      secondExtraRoll = this.frames[index + 1][1] === 10 ? 10 : (
-        this.frames[index + 2] === undefined ? 0 : this.frames[index + 2][0]
-        );
+      secondExtraRoll = this.frames[index + 1][1] === 10
+        ? 10
+        : (
+            this.frames[index + 2] === undefined ? 0 : this.frames[index + 2][0]
+          )
     } else {
       secondExtraRoll = this.frames[index + 1][1]
     }
@@ -63,19 +65,19 @@ class Scorecard {
     return firstExtraRoll + secondExtraRoll
   }
 
-  printScores() {
-    return "Frames: " + this.frames.map((frame) => { return frame.join("/") }).join(" # ") + `\nScore: ${this.calculateScore()}`;
+  printScores () {
+    return 'Frames: ' + this.frames.map((frame) => { return frame.join('/') }).join(' # ') + `\nScore: ${this.calculateScore()}`
   }
 
-  gameFinished() {
-    if (this.frames.length < 10) { return false; }
+  gameFinished () {
+    if (this.frames.length < 10) { return false }
 
-    let finalFrame = this.frames[9];
-    if (finalFrame[2] !== undefined) { return true; }
-    if (finalFrame[1] === undefined) { return false; }
-    if (finalFrame[0] + finalFrame[1] === 10 || finalFrame[0] + finalFrame[1] === 20) { return false; }
-    
-    return true;
+    const finalFrame = this.frames[9]
+    if (finalFrame[2] !== undefined) { return true }
+    if (finalFrame[1] === undefined) { return false }
+    if (finalFrame[0] + finalFrame[1] === 10 || finalFrame[0] + finalFrame[1] === 20) { return false }
+
+    return true
   }
 }
 

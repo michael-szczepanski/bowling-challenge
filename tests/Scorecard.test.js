@@ -1,10 +1,10 @@
 const Scorecard = require('../src/Scorecard.js')
 
-let scorecard;
+let scorecard
 
 describe('Scorecard', () => {
   beforeEach(() => {
-    scorecard = new Scorecard();
+    scorecard = new Scorecard()
   })
 
   test('passes exercise example', () => {
@@ -67,7 +67,7 @@ describe('Scorecard', () => {
     })
 
     test('counts scores correctly for a partial game finishing with a spare', () => {
-      scorecard.addFrame(0,10)
+      scorecard.addFrame(0, 10)
       expect(scorecard.calculateScore()).toEqual(10)
     })
   })
@@ -94,76 +94,76 @@ describe('Scorecard', () => {
     })
 
     test('works correctly for partial games', () => {
-      scorecard.addFrame(0,10)
+      scorecard.addFrame(0, 10)
       expect(scorecard.calculateStrikeExtraPoints(0)).toEqual(0)
     })
   })
 
   describe('addScore()', () => {
     test('it correctly adds score to an empty frame', () => {
-      scorecard.addScore(2);
-      expect(scorecard.frames).toEqual([[2,undefined]]);
-      scorecard.addScore(3);
-      expect(scorecard.frames).toEqual([[2,3]]);
+      scorecard.addScore(2)
+      expect(scorecard.frames).toEqual([[2, undefined]])
+      scorecard.addScore(3)
+      expect(scorecard.frames).toEqual([[2, 3]])
     })
 
     test('it correctly adds a new frame at the end of the array', () => {
-      scorecard.addFrame(1,2);
-      scorecard.addScore(3);
-      scorecard.addScore(4);
-      expect(scorecard.frames).toEqual([[1,2],[3,4]])
+      scorecard.addFrame(1, 2)
+      scorecard.addScore(3)
+      scorecard.addScore(4)
+      expect(scorecard.frames).toEqual([[1, 2], [3, 4]])
     })
 
     test('it correctly adds a full frame on Strike', () => {
-      scorecard.addScore(10);
-      expect(scorecard.frames).toEqual([[10,0]]);
+      scorecard.addScore(10)
+      expect(scorecard.frames).toEqual([[10, 0]])
     })
   })
 
   describe('printScores()', () => {
     test('returns scores in correct format', () => {
-      scorecard.addFrame(1,2);
-      scorecard.addFrame(3,4);
-      expect(scorecard.printScores()).toMatch("1/2");
-      expect(scorecard.printScores()).toMatch("3/4");
+      scorecard.addFrame(1, 2)
+      scorecard.addFrame(3, 4)
+      expect(scorecard.printScores()).toMatch('1/2')
+      expect(scorecard.printScores()).toMatch('3/4')
     })
   })
 
   describe('gameFinished()', () => {
     test('correctly returns true on full game played', () => {
-      scorecard.addFrame(1, 4);
-      scorecard.addFrame(4, 5);
-      scorecard.addFrame(6, 4);
-      scorecard.addFrame(5, 5);
-      scorecard.addFrame(10, 0);
-      scorecard.addFrame(0, 1);
-      scorecard.addFrame(7, 3);
-      scorecard.addFrame(6, 4);
-      scorecard.addFrame(10, 0);
-      expect(scorecard.gameFinished()).toEqual(false);
-      scorecard.addScore(2);
-      expect(scorecard.gameFinished()).toEqual(false);
-      scorecard.addScore(8);
-      expect(scorecard.gameFinished()).toEqual(false);
-      scorecard.addScore(5);
-      expect(scorecard.gameFinished()).toEqual(true);
+      scorecard.addFrame(1, 4)
+      scorecard.addFrame(4, 5)
+      scorecard.addFrame(6, 4)
+      scorecard.addFrame(5, 5)
+      scorecard.addFrame(10, 0)
+      scorecard.addFrame(0, 1)
+      scorecard.addFrame(7, 3)
+      scorecard.addFrame(6, 4)
+      scorecard.addFrame(10, 0)
+      expect(scorecard.gameFinished()).toEqual(false)
+      scorecard.addScore(2)
+      expect(scorecard.gameFinished()).toEqual(false)
+      scorecard.addScore(8)
+      expect(scorecard.gameFinished()).toEqual(false)
+      scorecard.addScore(5)
+      expect(scorecard.gameFinished()).toEqual(true)
     })
 
     test('correctly returns true on a missed final Frame', () => {
-      scorecard.addFrame(1, 4);
-      scorecard.addFrame(4, 5);
-      scorecard.addFrame(6, 4);
-      scorecard.addFrame(5, 5);
-      scorecard.addFrame(10, 0);
-      scorecard.addFrame(0, 1);
-      scorecard.addFrame(7, 3);
-      scorecard.addFrame(6, 4);
-      scorecard.addFrame(10, 0);
-      expect(scorecard.gameFinished()).toEqual(false);
-      scorecard.addScore(2);
-      expect(scorecard.gameFinished()).toEqual(false);
-      scorecard.addScore(4);
-      expect(scorecard.gameFinished()).toEqual(true);
+      scorecard.addFrame(1, 4)
+      scorecard.addFrame(4, 5)
+      scorecard.addFrame(6, 4)
+      scorecard.addFrame(5, 5)
+      scorecard.addFrame(10, 0)
+      scorecard.addFrame(0, 1)
+      scorecard.addFrame(7, 3)
+      scorecard.addFrame(6, 4)
+      scorecard.addFrame(10, 0)
+      expect(scorecard.gameFinished()).toEqual(false)
+      scorecard.addScore(2)
+      expect(scorecard.gameFinished()).toEqual(false)
+      scorecard.addScore(4)
+      expect(scorecard.gameFinished()).toEqual(true)
     })
   })
 })
