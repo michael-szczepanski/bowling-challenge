@@ -13,8 +13,11 @@ class Scorecard {
 
   addScore (score) {
     let lastFrame = this.frames.length - 1
-    if (this.frames[lastFrame] === undefined || this.frames[lastFrame][1] !== undefined) {
-      score === 10 ? this.addFrame(10,0) : this.addFrame(score, undefined);
+
+    if (lastFrame === 9) {
+      this.frames[lastFrame][1] === undefined ? this.frames[lastFrame][1] = score : this.frames[lastFrame][2] = score;
+    } else if (this.frames[lastFrame] === undefined || this.frames[lastFrame][1] !== undefined) {
+      score === 10 && lastFrame !== 8 ? this.addFrame(10,0) : this.addFrame(score, undefined);
     } else {
       this.frames[lastFrame][1] = score;
     }
@@ -25,7 +28,7 @@ class Scorecard {
 
     this.frames.forEach((frame, index) => {
       if (index === 9) {
-        score += frame.reduce((a, b) => a + b, 0)
+        score += frame.reduce((a, b) => { return a + (b || 0) }, 0)
         return score
       }
 
@@ -62,6 +65,17 @@ class Scorecard {
 
   printScores() {
     return "Frames: " + this.frames.map((frame) => { return frame.join("/") }).join(" # ") + `\nScore: ${this.calculateScore()}`;
+  }
+
+  gameFinished() {
+    if (this.frames.length < 10) { return false; }
+
+    let finalFrame = this.frames[9];
+    if (finalFrame[2] !== undefined) { return true; }
+    if (finalFrame[1] === undefined) { return false; }
+    if (finalFrame[0] + finalFrame[1] === 10 || finalFrame[0] + finalFrame[1] === 20) { return false; }
+    
+    return true;
   }
 }
 

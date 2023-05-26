@@ -128,4 +128,42 @@ describe('Scorecard', () => {
       expect(scorecard.printScores()).toMatch("3/4");
     })
   })
+
+  describe('gameFinished()', () => {
+    test('correctly returns true on full game played', () => {
+      scorecard.addFrame(1, 4);
+      scorecard.addFrame(4, 5);
+      scorecard.addFrame(6, 4);
+      scorecard.addFrame(5, 5);
+      scorecard.addFrame(10, 0);
+      scorecard.addFrame(0, 1);
+      scorecard.addFrame(7, 3);
+      scorecard.addFrame(6, 4);
+      scorecard.addFrame(10, 0);
+      expect(scorecard.gameFinished()).toEqual(false);
+      scorecard.addScore(2);
+      expect(scorecard.gameFinished()).toEqual(false);
+      scorecard.addScore(8);
+      expect(scorecard.gameFinished()).toEqual(false);
+      scorecard.addScore(5);
+      expect(scorecard.gameFinished()).toEqual(true);
+    })
+
+    test('correctly returns true on a missed final Frame', () => {
+      scorecard.addFrame(1, 4);
+      scorecard.addFrame(4, 5);
+      scorecard.addFrame(6, 4);
+      scorecard.addFrame(5, 5);
+      scorecard.addFrame(10, 0);
+      scorecard.addFrame(0, 1);
+      scorecard.addFrame(7, 3);
+      scorecard.addFrame(6, 4);
+      scorecard.addFrame(10, 0);
+      expect(scorecard.gameFinished()).toEqual(false);
+      scorecard.addScore(2);
+      expect(scorecard.gameFinished()).toEqual(false);
+      scorecard.addScore(4);
+      expect(scorecard.gameFinished()).toEqual(true);
+    })
+  })
 })

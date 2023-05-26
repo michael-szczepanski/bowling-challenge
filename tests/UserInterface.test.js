@@ -35,7 +35,7 @@ describe('UserInterface', () => {
   describe("displayWelcomeMessage()", () => {
     test('displays the correct message on screen', () => {
       ui.displayWelcomeMessage();
-      expect(console.log).toHaveBeenCalledWith('Welcome to Bowling!');
+      expect(console.log).toHaveBeenCalledWith('Welcome to Bowling Scorecard!');
     })
   })
 
