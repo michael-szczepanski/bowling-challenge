@@ -40,9 +40,12 @@ describe('UserInterface', () => {
     })
   })
 
-  describe('getUserInput()', () => {
-    test('returns inserted value', () => {
-
+  describe('displayGoodbyeMessage()', () => {
+    test('displays the correct message on screen', () => {
+      ui.displayGoodbyeMessage()
+      expect(console.log).toHaveBeenCalledWith('The game has finished!')
+      expect(ui.scorecard.printScores).toHaveBeenCalled()
+      expect(ui.scorecard.calculateScore).toHaveBeenCalled()
     })
   })
 })

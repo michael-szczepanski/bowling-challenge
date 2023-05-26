@@ -70,6 +70,11 @@ describe('Scorecard', () => {
       scorecard.addFrame(0, 10)
       expect(scorecard.calculateScore()).toEqual(10)
     })
+
+    test('counts scores correctly for a game with partial frames', () => {
+      scorecard.addScore(2);
+      expect(scorecard.calculateScore()).toEqual(2);
+    })
   })
 
   describe('calculateStrikeExtraPoints()', () => {
@@ -94,8 +99,10 @@ describe('Scorecard', () => {
     })
 
     test('works correctly for partial games', () => {
-      scorecard.addFrame(0, 10)
+      scorecard.addFrame(10, 0)
       expect(scorecard.calculateStrikeExtraPoints(0)).toEqual(0)
+      scorecard.addFrame(10,0)
+      expect(scorecard.calculateStrikeExtraPoints(0)).toEqual(10)
     })
   })
 
