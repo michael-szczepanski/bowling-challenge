@@ -79,6 +79,10 @@ class Scorecard {
 
     return true
   }
+
+  getLastFrame() {
+    return this.frames.slice(-1)[0]
+  }
 }
 
 module.exports = Scorecard

@@ -15,6 +15,37 @@ class UserInterface {
     this.getUserInput()
   }
 
+  getUserInput (mockAnswer) {
+    console.log(this.scorecard.printScores())
+    this.rl.question('Please enter your score, or "exit" to finish:', (answer) => {
+      answer = mockAnswer === undefined ? answer : mockAnswer
+
+      if (answer === 'exit') {
+        this.displayGoodbyeMessage()
+        this.rl.close()
+        return
+      }
+
+      if (this.checkIfValidInput(answer) === false) {
+        console.clear()
+        console.log('I did not understand that input, try again')
+      } else {
+        this.scorecard.addScore(parseInt(answer))
+
+        if (this.scorecard.gameFinished()) {
+          this.displayGoodbyeMessage()
+          this.rl.close()
+          return
+        } else {
+          console.clear()
+          console.log('Your scorecard: ')
+        }
+      }
+
+      this.getUserInput()
+    })
+  }
+
   displayWelcomeMessage () {
     console.log('Welcome to Bowling Scorecard!')
   }
@@ -26,28 +57,16 @@ class UserInterface {
     console.log('Final score: ' + this.scorecard.calculateScore())
   }
 
-  getUserInput () {
-    console.log(this.scorecard.printScores())
-    this.rl.question('Please enter your score, or "exit" to finish:', (answer) => {
-      if (answer === 'exit') {
-        this.displayGoodbyeMessage()
-        this.rl.close()
-        return
-      }
+  checkIfValidInput (userInput) {
+    const input = parseInt(userInput)
+    let lastFrame = this.scorecard.getLastFrame()
+    if (lastFrame === undefined) { lastFrame = [0,0] }
 
-      this.scorecard.addScore(parseInt(answer))
-
-      if (this.scorecard.gameFinished()) {
-        this.displayGoodbyeMessage()
-        this.rl.close()
-        return
-      } else {
-        console.clear()
-        console.log('Your scorecard: ')
-      }
-
-      this.getUserInput()
-    })
+    if (isNaN(input)) { return false }
+    if (input < 0 || input > 10) { return false }
+    if (lastFrame[1] !== undefined) { return true }
+    if (lastFrame[1] === undefined && lastFrame[0] + input > 10) { return false } 
+    return true
   }
 }
 

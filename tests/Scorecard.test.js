@@ -72,8 +72,8 @@ describe('Scorecard', () => {
     })
 
     test('counts scores correctly for a game with partial frames', () => {
-      scorecard.addScore(2);
-      expect(scorecard.calculateScore()).toEqual(2);
+      scorecard.addScore(2)
+      expect(scorecard.calculateScore()).toEqual(2)
     })
   })
 
@@ -101,7 +101,7 @@ describe('Scorecard', () => {
     test('works correctly for partial games', () => {
       scorecard.addFrame(10, 0)
       expect(scorecard.calculateStrikeExtraPoints(0)).toEqual(0)
-      scorecard.addFrame(10,0)
+      scorecard.addFrame(10, 0)
       expect(scorecard.calculateStrikeExtraPoints(0)).toEqual(10)
     })
   })
@@ -171,6 +171,15 @@ describe('Scorecard', () => {
       expect(scorecard.gameFinished()).toEqual(false)
       scorecard.addScore(4)
       expect(scorecard.gameFinished()).toEqual(true)
+    })
+  })
+
+  describe('getLastFrame()', () => {
+    test('retrieves last frame', () => {
+      scorecard.addFrame(1,4)
+      expect(scorecard.getLastFrame()).toEqual([1,4])
+      scorecard.addFrame(2,5)
+      expect(scorecard.getLastFrame()).toEqual([2,5])
     })
   })
 })
