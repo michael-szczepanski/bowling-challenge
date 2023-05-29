@@ -1,6 +1,6 @@
 const UserInterface = require('../src/UserInterface.js')
 const Scorecard = require('../src/Scorecard.js')
-const Readline = require('./mocks/readline.js')
+const Readline = require('./mocks/Readline.mock.js')
 
 let ui, mockedScorecard, readline
 jest.mock('../src/Scorecard.js')
