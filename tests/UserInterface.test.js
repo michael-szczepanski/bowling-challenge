@@ -121,5 +121,13 @@ describe('UserInterface', () => {
       expect(ui.checkIfValidInput('6')).toEqual(true)
       expect(ui.checkIfValidInput('2')).toEqual(true)
     })
+
+    test('allows the game to continue on the final frame if a user rolls a strike or a spare', () => {
+      ui.scorecard.getLastFrame.mockImplementation(() => { return [10, undefined, undefined]})
+      ui.scorecard.getFrames.mockImplementation(() => { return [[],[],[],[],[],[],[],[],[],[]] })
+
+      expect(ui.checkIfValidInput('9')).toEqual(true)
+      
+    })
   })
 })

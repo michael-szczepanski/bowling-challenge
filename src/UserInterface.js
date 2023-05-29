@@ -9,6 +9,7 @@ class UserInterface {
   }
 
   run () {
+    // Main loop of the scorecard game. Loop exit conditions are within getUserInput()
     this.gameRunning = true
     console.clear()
     this.displayWelcomeMessage()
@@ -16,6 +17,9 @@ class UserInterface {
   }
 
   getUserInput (mockAnswer) {
+    // Takes no arguments. mockAnswer is only used for the purposes of injecting answers for JEST testing
+    // Recursively asks a user for integer input until either 'exit' or gameFinished condition is reached
+    // Returns nothing
     console.log(this.scorecard.printScores())
     this.rl.question('Please enter your score, or "exit" to finish:', (answer) => {
       answer = mockAnswer === undefined ? answer : mockAnswer
@@ -58,6 +62,9 @@ class UserInterface {
   }
 
   checkIfValidInput (userInput) {
+    // Takes a string provided by the user in getUserInput and
+    // Returns false if input is invalid based on input format or roll legality within Bowling
+    // (Cannot roll more than 10 points per frame, and input has to be an integer)
     const input = parseInt(userInput)
     let lastFrame = this.scorecard.getLastFrame()
     if (lastFrame === undefined) { lastFrame = [0, 0] }
@@ -65,6 +72,7 @@ class UserInterface {
     if (isNaN(input)) { return false }
     if (input < 0 || input > 10) { return false }
     if (lastFrame[1] !== undefined) { return true }
+    if (this.scorecard.getFrames() !== undefined && this.scorecard.getFrames().length === 10 && lastFrame[0] === 10) { return true }
     if (lastFrame[1] === undefined && lastFrame[0] + input > 10) { return false }
     return true
   }

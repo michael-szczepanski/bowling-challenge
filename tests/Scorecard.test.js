@@ -182,4 +182,12 @@ describe('Scorecard', () => {
       expect(scorecard.getLastFrame()).toEqual([2, 5])
     })
   })
+
+  describe('getFrames()', () => {
+    test('returns frames array', () => {
+      scorecard.addFrame(1, 4)
+      scorecard.addFrame(2, 5)
+      expect(scorecard.getFrames()).toEqual([[1, 4], [2, 5]])
+    })
+  })
 })

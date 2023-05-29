@@ -5,7 +5,7 @@
 
 ## Setup
 ```zsh
-
+node index.js
 ```
 
 ## Built with
