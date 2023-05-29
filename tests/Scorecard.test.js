@@ -176,10 +176,10 @@ describe('Scorecard', () => {
 
   describe('getLastFrame()', () => {
     test('retrieves last frame', () => {
-      scorecard.addFrame(1,4)
-      expect(scorecard.getLastFrame()).toEqual([1,4])
-      scorecard.addFrame(2,5)
-      expect(scorecard.getLastFrame()).toEqual([2,5])
+      scorecard.addFrame(1, 4)
+      expect(scorecard.getLastFrame()).toEqual([1, 4])
+      scorecard.addFrame(2, 5)
+      expect(scorecard.getLastFrame()).toEqual([2, 5])
     })
   })
 })

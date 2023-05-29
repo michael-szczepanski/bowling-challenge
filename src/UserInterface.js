@@ -60,12 +60,12 @@ class UserInterface {
   checkIfValidInput (userInput) {
     const input = parseInt(userInput)
     let lastFrame = this.scorecard.getLastFrame()
-    if (lastFrame === undefined) { lastFrame = [0,0] }
+    if (lastFrame === undefined) { lastFrame = [0, 0] }
 
     if (isNaN(input)) { return false }
     if (input < 0 || input > 10) { return false }
     if (lastFrame[1] !== undefined) { return true }
-    if (lastFrame[1] === undefined && lastFrame[0] + input > 10) { return false } 
+    if (lastFrame[1] === undefined && lastFrame[0] + input > 10) { return false }
     return true
   }
 }

@@ -80,7 +80,7 @@ class Scorecard {
     return true
   }
 
-  getLastFrame() {
+  getLastFrame () {
     return this.frames.slice(-1)[0]
   }
 }
